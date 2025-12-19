@@ -1,0 +1,73 @@
+{
+  "tests": [
+    {
+      "name": "Вывод на карту Сбербанка",
+      "method": "POST",
+      "path": "/",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "amount": 10000,
+        "method": "card",
+        "bank": "sber",
+        "account": "1234567890123456"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "transactionId": "string",
+        "amount": "number",
+        "status": "pending",
+        "sender": "Низоленко Артём"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Вывод по номеру телефона",
+      "method": "POST",
+      "path": "/",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "amount": 5000,
+        "method": "phone",
+        "bank": "tinkoff",
+        "account": "+79991234567"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "transactionId": "string",
+        "status": "pending"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Неверная сумма вывода",
+      "method": "POST",
+      "path": "/",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "amount": -1000,
+        "method": "card",
+        "bank": "sber",
+        "account": "1234567890123456"
+      },
+      "expectedStatus": 400,
+      "expectedBody": {
+        "error": "string"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "OPTIONS запрос для CORS",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200,
+      "expectedBody": "",
+      "bodyMatcher": "exact"
+    }
+  ]
+}

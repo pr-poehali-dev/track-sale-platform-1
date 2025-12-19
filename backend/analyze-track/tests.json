@@ -1,0 +1,32 @@
+{
+  "tests": [
+    {
+      "name": "Анализ трека с нормальным размером",
+      "method": "POST",
+      "path": "/",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "fileName": "test-track.mp3",
+        "fileSize": 5242880,
+        "audioData": "fake_base64_data"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "estimatedPrice": "number",
+        "fileName": "string",
+        "analysis": "object"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "OPTIONS запрос для CORS",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200,
+      "expectedBody": "",
+      "bodyMatcher": "exact"
+    }
+  ]
+}

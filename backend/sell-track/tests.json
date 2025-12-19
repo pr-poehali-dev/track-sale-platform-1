@@ -1,0 +1,33 @@
+{
+  "tests": [
+    {
+      "name": "Продажа трека",
+      "method": "POST",
+      "path": "/",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "fileName": "my-track.mp3",
+        "price": 10000,
+        "audioData": "ZmFrZV9hdWRpb19kYXRh"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "trackId": "string",
+        "fileName": "string",
+        "price": "number",
+        "status": "string"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "OPTIONS запрос для CORS",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200,
+      "expectedBody": "",
+      "bodyMatcher": "exact"
+    }
+  ]
+}

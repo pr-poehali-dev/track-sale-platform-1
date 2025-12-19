@@ -58,7 +58,7 @@ const UploadTrackForm = ({ onSuccess }: UploadTrackFormProps) => {
       reader.onload = async () => {
         const base64Audio = reader.result?.toString().split(',')[1];
         
-        const response = await fetch('/api/analyze-track', {
+        const response = await fetch('https://functions.poehali.dev/c9ed06ff-5f82-4e7e-a54a-6ec1ed082c96', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -101,7 +101,7 @@ const UploadTrackForm = ({ onSuccess }: UploadTrackFormProps) => {
       reader.onload = async () => {
         const base64Audio = reader.result?.toString().split(',')[1];
         
-        const response = await fetch('/api/sell-track', {
+        const response = await fetch('https://functions.poehali.dev/fe33d77a-545e-4bb8-be55-490fac5b1de1', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
