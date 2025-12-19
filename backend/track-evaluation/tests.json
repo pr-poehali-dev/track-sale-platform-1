@@ -10,8 +10,9 @@
       "expectedStatus": 200,
       "expectedBody": {
         "estimatedPrice": "number",
-        "currency": "RUB",
-        "confidence": "number"
+        "currency": "string",
+        "confidence": "number",
+        "analysis": "object"
       },
       "bodyMatcher": "partial"
     },

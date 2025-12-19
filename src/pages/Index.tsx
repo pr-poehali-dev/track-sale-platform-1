@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -40,6 +40,18 @@ const Index = () => {
   const [withdrawBank, setWithdrawBank] = useState('');
   const [withdrawAccount, setWithdrawAccount] = useState('');
 
+  useEffect(() => {
+    if ('Notification' in window && Notification.permission === 'default') {
+      Notification.requestPermission().then(permission => {
+        if (permission === 'granted') {
+          toast.success('Уведомления включены', {
+            description: 'Вы будете получать push-уведомления о продажах и переводах'
+          });
+        }
+      });
+    }
+  }, []);
+
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -49,6 +61,13 @@ const Index = () => {
       toast.success('Трек загружен! ИИ оценил стоимость', {
         description: `Рекомендуемая цена: ${randomPrice} ₽`,
       });
+      
+      if ('Notification' in window && Notification.permission === 'granted') {
+        new Notification('🎵 Трек загружен', {
+          body: `ИИ оценил ваш трек в ${randomPrice} ₽`,
+          icon: '/favicon.ico'
+        });
+      }
     }
   };
 
@@ -74,6 +93,13 @@ const Index = () => {
       toast.info('💰 Новая продажа!', {
         description: `Ваш трек "${uploadedFile.name}" успешно продан за ${estimatedPrice} ₽`,
       });
+      
+      if ('Notification' in window && Notification.permission === 'granted') {
+        new Notification('💰 Продажа завершена!', {
+          body: `Трек "${uploadedFile.name}" продан за ${estimatedPrice} ₽`,
+          icon: '/favicon.ico'
+        });
+      }
     }, 1000);
 
     setUploadedFile(null);
@@ -122,10 +148,24 @@ const Index = () => {
         description: `${amount} ₽ отправлено на ${withdrawBank}`,
       });
 
+      if ('Notification' in window && Notification.permission === 'granted') {
+        new Notification('✅ Вывод средств завершён', {
+          body: `${amount} ₽ отправлено на ${withdrawBank}`,
+          icon: '/favicon.ico'
+        });
+      }
+
       setTimeout(() => {
         toast.info('🏦 Перевод от Низоленко Артёма', {
           description: `Поступил перевод на сумму ${amount} ₽`,
         });
+        
+        if ('Notification' in window && Notification.permission === 'granted') {
+          new Notification('🏦 Перевод от Низоленко Артёма', {
+            body: `Поступил перевод на сумму ${amount} ₽`,
+            icon: '/favicon.ico'
+          });
+        }
       }, 500);
     }, 30000);
 
